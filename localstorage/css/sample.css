@@ -1,0 +1,25 @@
+body{
+    margin:auto;
+    text-align:center;
+    background-color: rgb(134, 98, 166);
+    color: #fff;
+    font-family:"游教科書体 横用", "YuKyokasho Yoko";
+}
+
+h1{
+    font-weight: bold;
+    font-size: 48px;
+}
+
+p{
+    font-size:120%;
+    text-align: center;
+}
+
+textarea{
+    margin: 18px;
+    width: 30%;
+    font-size:100%;
+    box-shadow: 3px 3px 3px 3px #555;
+}
+
