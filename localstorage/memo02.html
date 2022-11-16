@@ -10,49 +10,66 @@
 </head>
 
 <body>
-  <header>
-    <h1>参考文献リスト自動生成</h1>
-    <p>「論文まで提出ギリギリなのに参考文献を書くのめんどくさい...」<br>
-        と考えているそこのあなたに朗報！<br>
-        書式を調べる手間を省くことのできる「究極の時短ツール」をお使いください。
-    </p>
-  </header>
-
-  <main>
-    <label for="select">参考文献の種類を選択</label>
-    <select name="book_or_web">
-      <option value="">選択してください</option>
-      <option value="">書籍</option>
-      <option value="">Webサイト</option>
-    </select>
-
+    <header>
+      <h1>参考文献リスト自動生成</h1>
+      <p>「論文まで提出ギリギリなのに参考文献を書くのめんどくさい...」<br>
+          と考えているそこのあなたに朗報！<br>
+          書式を調べる手間を省くことのできる「究極の時短ツール」をお使いください。
+      </p>
+    </header>
+  <div class="box_flex">
     <div>
-        <input type="radio" name="author">著者名</input>
-        <input type="radio" name="author">編者名</input>
+      <main>
+        <label for="select">参考文献の種類を選択</label>
+        <select name="book_or_web">
+          <option value="">選択してください</option>
+          <option value="">書籍</option>
+          <option value="">Webサイト</option>
+        </select>
 
+        <div>
+            <input type="radio" name="author">著者名</input>
+            <input type="radio" name="author">編者名</input>
+
+          <div>
+            <textarea id="text_area1"></textarea>
+          </div>
+          
+          <div>
+            <p>出版年</p>
+            <textarea id="text_area2"></textarea>
+            <!-- 1900-2022まで -->
+          </div>
+
+          <div>
+            <p>タイトル</p>
+            <textarea id="text_area3"></textarea>
+          </div>
+
+          <div>出版社</div>
+            <textarea id="text_area4"></textarea>
+          
+          <div>ページ</div>
+            <textarea id="text_area5"></textarea>
+
+
+        <ul>
+          <button id="save">生成</button>
+          <button id="clear">削除</button>
+        </ul>
+      </main>
+    </div>
+    <div>
+      <!-- 出力 -->
       <div>
-        <textarea id="text_area1"></textarea>
+        <textarea id="push_text"></textarea>
       </div>
-      
       <div>
-        <p>出版年</p>
-        <textarea id="text_area2"></textarea>
+        <button onclick="copy()">コピーする</button>
       </div>
-
-      <div>
-        <p>タイトル</p>
-        <textarea id="text_area3"></textarea>
-      </div>
-
-      <div>出版社</div>
-        <textarea id="text_area4"></textarea>
-
-    <ul>
-      <button id="save">追加</button>
-      <button id="clear">削除</button>
-    </ul>
-  </main>
-
+    </div>
+  </div>
+</div>
   <footer>
     <small>参考文献リスト自動生成</small>
   </footer>
@@ -61,42 +78,55 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script>
 
+    //1900-2022年までを表示させる
+    // var userBirthdayYear = document.querySelector('.user-birthday-year');
+    // for (var i = 1900; i <= 2022; i++) {
+      // createElementsForOptions(userBirthdayYear, i);
+    // }
 
     //テキストを入れる・登録する
     $('#save').on('click', function () {
-      const author = $('#text_area1').val('');
+      const author = $('#text_area1').val();
       const year = $('#text_area2').val();
-      const title = $('#text_area3').val('');
-      const company = $('#text_area4').val('');
+      const title = $('#text_area3').val();
+      const company = $('#text_area4').val();
+      const page = $('#text_area5').val();
+
+
+
 
       const data = {
-        author:'',
-        year: '',
-        title: '',
-        company: '',
+        author: author,
+        year:year,
+        title: title,
+        company: company,
+        page: page,
       };
       // 配列やオブジェクトを JSON に変換する処理
       const jsonData = JSON.stringify(data);
       localStorage.setItem('memo', jsonData);
     });
 
-    // //テキストを削除する
-    // $('#clear').on('click', function () {
-    //   localStorage.removeItem('memo');
-    //   $('#text_area1').val('');
-    //   $('#text_area2').val('');
-    //   $('#text_area3').val('');
-    //   $('#text_area4').val('');
-    // });
+    //テキストを削除する
+    $('#clear').on('click', function () {
+      localStorage.removeItem('memo');
+      $('#text_area1').val();
+      $('#text_area2').val();
+      $('#text_area3').val();
+      $('#text_area4').val();
+      $('#text_area5').val();
 
-    // //JSON を配列やオブジェクトに戻す処理
-    // if (localStorage.getItem('memo')) {
-    //   const jsonData = localStorage.getItem('memo');
-    //   console.log(jsonData);
-    //   const data = JSON.parse(jsonData);
-    //   console.log(data);
-    //   $('#input').val(data.title);
-    // }
+    });
+
+    //JSON を配列やオブジェクトに戻す処理
+    if (localStorage.getItem('memo')) {
+      const jsonData = localStorage.getItem('memo');
+      console.log(jsonData);
+      const data = JSON.parse(jsonData);
+      const penpen = data.author +'(' + data.year + '),『' + data.title +'』'+ data.company + ', pp.'+ data.page ;
+      $("#push_text").val(penpen);
+
+    }
 
   </script>
 
