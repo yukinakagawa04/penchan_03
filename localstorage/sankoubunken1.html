@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/sample.css">
+    <title>参考文献自動生成リスト</title>
+</head>
+<body>
+    <header>
+        <h1>参考文献リスト自動生成</h1>
+        <p>「論文まで提出ギリギリなのに参考文献を書くのめんどくさい...」<br>
+            と考えているそこのあなたに朗報！<br>
+            書式を調べる手間を省くことのできる「究極の時短ツール」をお使いください。
+        </p>
+    </header>
+        <div id="choice_name">
+            <input type="radio" name="author">著者名</input>
+            <input type="radio" name="author" id="henjamei">編者名</input>
+        </div>
+        <div>
+            <textarea id="text_area1"></textarea>
+        </div>
+        <div>
+            <p>出版年</p>
+            <textarea id="text_area2"></textarea>
+            <!-- 1900-2022まで -->
+        </div>
+        
+        <div>
+            <p>タイトル</p>
+            <textarea id="text_area3"></textarea>
+        </div>
+        
+        <div>出版社</div>
+        <textarea id="text_area4"></textarea>
+        
+        <div>ページ</div>
+        <textarea id="text_area5"></textarea>
+        
+        
+        <ul>
+            <button id="save">保存</button>
+            <button id="produce">生成する</button>
+            <button id="clear">削除</button>
+        </ul>
+    <!-- 出力 -->
+    <div>
+        <textarea id="push_text"></textarea>
+    </div>
+    <div>
+        <button onclick="copy()">コピーする</button>
+    </div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script>
+     // 空の配列
+    const essay = [];
+
+    //テキストを入れる・登録する
+  //JSON を配列やオブジェクトに戻す処理
+    if (localStorage.getItem('memo')) {
+    const jsonData = localStorage.getItem('memo');
+    console.log(jsonData);
+    const data = JSON.parse(jsonData);
+    }
+
+        //ローカルストレージ内のテキストを削除する
+        $('#clear').on('click', function () {
+            localStorage.removeItem('memo');
+            $('#text_area1').val();
+            $('#text_area2').val();
+            $('#text_area3').val();
+            $('#text_area4').val();
+            $('#text_area5').val();
+
+        });
+
+        //表側のテキストも削除する
+
+    for (var i = 0; i < essay.length; i++) {
+    const author = data[i].author;
+    const year = data[i].year;
+    const title = data[i].title;
+    const company = data[i].company;
+    const page = data[i].page;
+
+    allData.push(essay[i])
+    }
+    // テキストがローカルストレージに保存されます
+    $('#save').on('click', function () {
+        alert('ぺぺん1！');
+        const author = $('#text_area1').val();
+        const year = $('#text_area2').val();
+        const title = $('#text_area3').val();
+        const company = $('#text_area4').val();
+        const page = $('#text_area5').val();
+
+        const data = {
+            author: author,
+            year: year,
+            title: title,
+            company: company,
+            page: page,
+        };
+        // 配列やオブジェクトを JSON に変換する処理
+
+        essay.push(data)
+        const jsonData = JSON.stringify(essay);
+        localStorage.setItem('memo', jsonData);
+    });
+
+
+
+
+    // //テキストを削除する
+    // $('#clear').on('click', function () {
+    //     localStorage.removeItem('memo');
+    //     $('#text_area1').val();
+    //     $('#text_area2').val();
+    //     $('#text_area3').val();
+    //     $('#text_area4').val();
+    //     $('#text_area5').val();
+
+    // });
+
+    //保存した後に改めてdataの中身をローカルストレージから取得する処理
+        $('#produce').on('click', function(){
+    if (localStorage.getItem(essay[i])){
+            const jsonData = localStorage.getItem(data);
+            console.log(jsonData);
+        }
+
+        // 取得した情報を一列に並べる
+        if (localStorage.getItem('memo')) {
+            const jsonData = localStorage.getItem('memo');
+            console.log(jsonData);
+
+
+            const data = JSON.parse(jsonData);
+            $('#produce').on('click', function () {
+                alert('ぺぺん2！');
+                const author = data[i].author;
+                const year = data[i].year;
+                const title = data[i].title;
+                const company = data[i].company;
+                const page = data[i].page;
+
+
+                const penpen = data[i].author + '(' + data[i].year + '),『' + data[i].title + '』' + data[i].company + ', pp.' + data[i].page;
+                $("#push_text").val(penpen);
+            });
+
+        }   
+    });
+
+</script>    
+</body>
+</html>

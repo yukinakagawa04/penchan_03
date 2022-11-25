@@ -27,9 +27,10 @@
           <option value="">Webサイト</option>
         </select>
 
-        <div>
+        <select id="choice_name">
             <input type="radio" name="author">著者名</input>
-            <input type="radio" name="author">編者名</input>
+            <input type="radio" name="author" id="henjamei">編者名</input>
+        </select>
 
           <div>
             <textarea id="text_area1"></textarea>
@@ -54,7 +55,8 @@
 
 
         <ul>
-          <button id="save">生成</button>
+          <button id="save">保存</button>
+          <button id="produce">生成する</button>
           <button id="clear">削除</button>
         </ul>
       </main>
@@ -78,22 +80,51 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script>
 
-    //1900-2022年までを表示させる
-    // var userBirthdayYear = document.querySelector('.user-birthday-year');
-    // for (var i = 1900; i <= 2022; i++) {
-      // createElementsForOptions(userBirthdayYear, i);
-    // }
+  //   //1900-2022年までを表示させる 
+  //     const start = 1900;
+  //     const end = 2022;
+  //     let options = '';
+  //   for (let i = start; i <= end; i++) {
+  //     options += '<option value = "">' + i + '</option>';
+
+  // // optionsをjsonDataに登録する
+  //   }
+  // console.log(options);
+  // $('#text_area2').html(options);   
+  // // optionsをjsonDataに登録する
+
+
+  
+    // 空の配列
+    const essay = [];
+    
 
     //テキストを入れる・登録する
+  //JSON を配列やオブジェクトに戻す処理
+    if (localStorage.getItem('memo')) {
+    const jsonData = localStorage.getItem('memo');
+    console.log(jsonData);
+    const data = JSON.parse(jsonData);
+      
+    for (var i = 0; i < essay.data; i++) {
+      const author = data[i].author;
+      const year = data[i].year;
+      const title = data[i].title;
+      const company = data[i].company;
+      const page = data[i].page;
+      
+      allData.push(essay[i])
+    }
+
+
+// テキストがローカルストレージに保存されます
     $('#save').on('click', function () {
+      alert('ぺぺん1！');
       const author = $('#text_area1').val();
       const year = $('#text_area2').val();
       const title = $('#text_area3').val();
       const company = $('#text_area4').val();
       const page = $('#text_area5').val();
-
-
-
 
       const data = {
         author: author,
@@ -102,8 +133,10 @@
         company: company,
         page: page,
       };
-      // 配列やオブジェクトを JSON に変換する処理
-      const jsonData = JSON.stringify(data);
+// 配列やオブジェクトを JSON に変換する処理
+      
+      essay.push(data)
+      const jsonData = JSON.stringify(essay);
       localStorage.setItem('memo', jsonData);
     });
 
@@ -118,15 +151,39 @@
 
     });
 
-    //JSON を配列やオブジェクトに戻す処理
+    // 取得した情報を一列に並べる
     if (localStorage.getItem('memo')) {
-      const jsonData = localStorage.getItem('memo');
-      console.log(jsonData);
-      const data = JSON.parse(jsonData);
-      const penpen = data.author +'(' + data.year + '),『' + data.title +'』'+ data.company + ', pp.'+ data.page ;
-      $("#push_text").val(penpen);
+    const jsonData = localStorage.getItem('memo');
+    console.log(jsonData);
+    
 
+    const data = JSON.parse(jsonData);
+      $('#produce').on('click', function () {
+        alert('ぺぺん2！');
+        const author = data[i].author;
+        const year = data[i].year;
+        const title = data[i].title;
+        const company = data[i].company;
+        const page = data[i].page;   
+
+
+      const penpen = data[i].author +'(' + data[i].year + '),『' + data[i].title +'』'+ data[i].company + ', pp.'+ data[i].page ;
+      $("#push_text").val(penpen);
+      });
+      
     }
+    }
+      //クリップボードをコピー
+
+      alert
+
+        // // 編者名のテキストボックスに「編」というテキストを入れる
+        //   $('#choice_name').on('click', function () {
+        //     //選択したテキストエリアに「編」を出力する
+        //     const henjamei = data.author + '編';
+        //     $('#text_area1').val(henjamei);
+        //   });
+
 
   </script>
 
