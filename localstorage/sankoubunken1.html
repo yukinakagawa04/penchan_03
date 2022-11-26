@@ -50,7 +50,7 @@
         <textarea id="push_text"></textarea>
     </div>
     <div>
-        <button onclick="copy()">コピーする</button>
+        <button id="copy">コピーする</button>
     </div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -148,12 +148,32 @@
                 const page = data[i].page;
 
 
-                const penpen = data[i].author + '(' + data[i].year + '),『' + data[i].title + '』' + data[i].company + ', pp.' + data[i].page;
+                const penpen = data[i].author + '(' + data[i].year + ').『' + data[i].title + '』' + data[i].company + ', pp.' + data[i].page +'.';
                 $("#push_text").val(penpen);
             });
 
         }   
     });
+
+        //クリップボードをコピー
+    $(function () {
+        /**
+         * @summary クリップボードにコピー
+         */
+        const copyToClipboard = () => {
+            const target = $('#push_text').val();
+            navigator.clipboard.writeText(target)
+                .then(e => {
+                    alert('クリップボードにコピーしました');
+                });
+        }
+
+        $(document).on("click", "#copy", () => copyToClipboard());
+    });
+
+
+
+
 
 </script>    
 </body>
