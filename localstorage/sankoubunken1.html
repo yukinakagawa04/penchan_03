@@ -127,7 +127,7 @@
 
     //保存した後に改めてdataの中身をローカルストレージから取得する処理
         $('#produce').on('click', function(){
-    if (localStorage.getItem(essay[i])){
+            if (localStorage.getItem(essay[i])){
             const jsonData = localStorage.getItem(data);
             console.log(jsonData);
         }
@@ -138,7 +138,7 @@
             console.log(jsonData);
 
 
-            const data = JSON.parse(jsonData);
+        const data = JSON.parse(jsonData);
             $('#produce').on('click', function () {
                 alert('ぺぺん2！');
                 const author = data[i].author;

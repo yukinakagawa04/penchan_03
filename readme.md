@@ -30,4 +30,4 @@
 - 生年月日
   https://dara-blog.com/birthday-form-by-js
 - コピーボタン作って textarea 内をコピーする
-  https://fuuno.net/web02/copy/copy.html
+  https://qiita.com/NaokiHaba/items/aa7838d11128bf01fdb1
